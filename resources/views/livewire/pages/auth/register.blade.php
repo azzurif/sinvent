@@ -8,7 +8,7 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component
+new #[Layout('layouts.guest')] class extends Component 
 {
     public string $name = '';
     public string $email = '';
@@ -22,13 +22,13 @@ new #[Layout('layouts.guest')] class extends Component
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered($user = User::create($validated)));
+        event(new Registered(($user = User::create($validated))));
 
         Auth::login($user);
 
@@ -37,52 +37,64 @@ new #[Layout('layouts.guest')] class extends Component
 }; ?>
 
 <div>
-    <form wire:submit="register">
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+  <div class="md:flex md:items-center md:justify-center">
+    <form class="md:w-96" wire:submit="register">
+      <x-header>
+        Create your account
+        <slot:subheader>
+          <p class="text-sm font-light text-gray-500">
+            Welcome! Please fill in the details to get started.
+          </p>
+        </slot:subheader>
+      </x-header>      
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+      <!-- Name -->
+      <div>
+        <x-input-label for="name" :value="__('Name')" />
+        <x-text-input class="mt-1 block w-full" id="name" name="name" type="text" wire:model="name" required
+          autofocus autocomplete="name" />
+        <x-input-error class="mt-2" :messages="$errors->get('name')" />
+      </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+      <!-- Email Address -->
+      <div class="mt-4">
+        <x-input-label for="email" :value="__('Email')" />
+        <x-text-input class="mt-1 block w-full" id="email" name="email" type="email" wire:model="email" required
+          autocomplete="username" />
+        <x-input-error class="mt-2" :messages="$errors->get('email')" />
+      </div>
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+      <!-- Password -->
+      <div class="mt-4">
+        <x-input-label for="password" :value="__('Password')" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        <x-text-input class="mt-1 block w-full" id="password" name="password" type="password" wire:model="password"
+          required autocomplete="new-password" />
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+        <x-input-error class="mt-2" :messages="$errors->get('password')" />
+      </div>
 
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+      <!-- Confirm Password -->
+      <div class="mt-4">
+        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+        <x-text-input class="mt-1 block w-full" id="password_confirmation" name="password_confirmation" type="password"
+          wire:model="password_confirmation" required autocomplete="new-password" />
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}" wire:navigate>
-                {{ __('Already registered?') }}
-            </a>
+        <x-input-error class="mt-2" :messages="$errors->get('password_confirmation')" />
+      </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+      <div class="mt-4 flex flex-col items-center justify-center gap-2">
+        <x-primary-button class="flex w-full justify-center">
+          {{ __('Register') }}
+        </x-primary-button>
+
+        <x-link href="{{ route('login') }}">
+          {{ __('Already registered?') }}
+        </x-link>
+      </div>
     </form>
+
+    <img class="hidden md:block md:max-w-md" src="images/guest/login-image.png" alt="Guest Image" />
+  </div>
 </div>
