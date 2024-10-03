@@ -46,7 +46,7 @@ new #[Layout('layouts.guest')] class extends Component
             Welcome! Please fill in the details to get started.
           </p>
         </slot:subheader>
-      </x-header>      
+      </x-header>
 
       <!-- Name -->
       <div>

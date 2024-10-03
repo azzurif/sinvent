@@ -1,4 +1,4 @@
-@props(['disabled' => false,])
+@props(['disabled' => false])
 
 <div class="relative">
   <input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge([
