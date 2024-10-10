@@ -1,9 +1,11 @@
-<div class="flex flex-col items-center text-center mb-2">
-  <h2 {{ $attributes->merge(['class' => 'font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight']) }}>
+<div {{ $attributes->class(['']) }}>
+  <h2 class="dark:text-white text-lg font-medium leading-tight text-primary">
     {{ $slot }}
   </h2>
 
   @isset($subheader)
-    {{ $subheader }}
+    <p class="dark:text-light-gray mt-1 text-sm text-dark-gray">
+      {{ $subheader }}
+    </p>
   @endisset
 </div>

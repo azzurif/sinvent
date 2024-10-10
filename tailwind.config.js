@@ -21,6 +21,10 @@ export default {
                 'light-gray': '#B3B3B3',
                 'dark-blue': '#4A64E5',
                 'light-blue': '#4D97E6',
+                'dark-green': '#28A745',
+                'light-green': '#0DD157',
+                'dark-red': '#dC3545',
+                'light-red': '#FB4143',
             }
         },
     },

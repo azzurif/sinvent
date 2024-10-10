@@ -30,13 +30,11 @@ new #[Layout('layouts.guest')] class extends Component
 
   <div class="md:flex md:items-center md:justify-center">
     <form class="md:w-96" wire:submit="login">
-      <x-header>
+      <x-header class="mb-2 flex flex-col items-center text-center">
         Sign In
-        <slot:subheader>
-          <p class="text-sm font-light text-gray-500">
-            Welcome back! Please sign in to continue
-          </p>
-        </slot:subheader>
+        <x-slot:subheader>
+          Welcome back! Please sign in to continue
+        </x-slot:subheader>
       </x-header>
 
       <!-- Email Address -->
@@ -61,7 +59,7 @@ new #[Layout('layouts.guest')] class extends Component
       <div class="mt-4 flex items-center justify-between">
         <label class="inline-flex items-center" for="remember">
           <x-checkbox id="remember" type="checkbox" wire:model="form.remember" />
-          <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+          <span class="dark:text-gray-400 ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
         </label>
 
         @if (Route::has('password.request'))

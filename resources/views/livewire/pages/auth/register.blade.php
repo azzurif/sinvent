@@ -39,13 +39,11 @@ new #[Layout('layouts.guest')] class extends Component
 <div>
   <div class="md:flex md:items-center md:justify-center">
     <form class="md:w-96" wire:submit="register">
-      <x-header>
+      <x-header class="mb-2 flex flex-col items-center text-center">
         Create your account
-        <slot:subheader>
-          <p class="text-sm font-light text-gray-500">
-            Welcome! Please fill in the details to get started.
-          </p>
-        </slot:subheader>
+        <x-slot:subheader>
+          Welcome! Please fill in the details to get started.
+        </x-slot:subheader>
       </x-header>
 
       <!-- Name -->
