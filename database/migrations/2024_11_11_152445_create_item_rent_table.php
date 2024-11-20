@@ -13,8 +13,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('item_rent', function (Blueprint $table) {
-            $table->foreignIdFor(Item::class);
-            $table->foreignIdFor(Rent::class);
+            $table->foreignIdFor(Item::class)->constrained();
+            $table->foreignIdFor(Rent::class)->constrained();
             $table->tinyInteger('qnt');
         });
     }
